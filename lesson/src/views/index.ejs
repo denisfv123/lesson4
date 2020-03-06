@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+    <p><a href="/v1/users/create/"><button>CREATE</button></a></p>
+
+    <table width="100%" border="1">
+       
+      <tr>
+        <th>#</th>
+        <th>Email</th>
+        <th>Update</th>
+        <th>Full name</th>
+        <th>Delete</th>
+      </tr>
+       
+      <% for (i = 0; i < data.length; i++) { %>
+        <tr>
+          <th>  <%= i %> </th>
+          <td>  <%= data[i].email  %> </td>
+          <td>  
+            <a href='/v1/users/update/<%= data[i]._id%>'>update</a>
+          </td>
+          <td>  <%= data[i].fullName %> </td>
+          <td> 
+            <form method="POST" action="/v1/users/<%=data[i]._id %>?_method=DELETE">
+              <input type="hidden" name="_method" value="DELETE">
+              <input type="hidden" name="_csrf" value="<%=csrfToken %>">
+              <input type="hidden" name="id" value="<%=data[i]._id %>">
+              <input type="submit" value="delete"/>
+            </form>
+          </td> 
+        </tr>
+      <% } %>
+      
+    </table>
+
+</body>
+<html>
